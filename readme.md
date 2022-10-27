@@ -1,11 +1,11 @@
-# start system
+# Start job worker
 celery --app=job  worker  -c 1 -Q job -D
 
-# this is gpu worker can use different CUDA_VISIBLE_DEVICES for different GPU worker
+# Start GPU worker with different CUDA_VISIBLE_DEVICES
 CUDA_VISIBLE_DEVICES=1 celery -A sub_job worker  -c 1 -Q sub_job -D 
 CUDA_VISIBLE_DEVICES=2 celery -A sub_job worker  -c 1 -Q sub_job -D
 
-# shutdown
+# Shutdown
 celery -A sub_job control shutdown
 celery -A job control shutdown
 
